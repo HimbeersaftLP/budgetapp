@@ -1,8 +1,16 @@
+FROM maven:3-openjdk-8 as builder
+
+WORKDIR /app
+
+COPY . .
+
+RUN mvn package
+
 FROM anapsix/alpine-java
 
-ADD target/budgetapp.jar /app/budgetapp.jar
+COPY --from=builder /app/target/budgetapp.jar /app/budgetapp.jar
 
-ADD config/config.yml /app/config.yml
+COPY --from=builder /app/config/config.yml /app/config.yml
 
 WORKDIR /app
 
