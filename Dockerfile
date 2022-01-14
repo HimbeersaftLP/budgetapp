@@ -6,7 +6,7 @@ COPY . .
 
 RUN mvn package
 
-FROM anapsix/alpine-java
+FROM openjdk:8-jre-slim
 
 COPY --from=builder /app/target/budgetapp.jar /app/budgetapp.jar
 
